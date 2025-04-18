@@ -12,20 +12,152 @@
     button { margin-top: 10px; }
     input { margin-top: 10px; }
     .next-btn { display: none; margin-top: 10px; }
-    .timer { font-weight: bold; color: red; }
   </style>
 </head>
 <body>
   <h1>APA Verwijzingen Oefenspel</h1>
   <div id="score">Score: 0</div>
 
-  <!-- Timer -->
-  <div id="timer" class="timer">Tijd: 30s</div>
+  <!-- Vraag 1 t/m 8 blijven hetzelfde -->
+<div class="question active" id="q1">
+    <p><strong>Vraag 1 – In-tekstverwijzing:</strong><br>
+    <em>Van Meeteren, H. (2020). De slag om lokaal 308. Den Haag: Maerlant Uitgevers.</em><br><br>
+    Wat is de juiste in-tekstverwijzing?</p>
+    <button onclick="checkAnswer('q1', 'a', 'c')">a) Van Meeteren (2020)</button><br>
+    <button onclick="checkAnswer('q1', 'b', 'c')">b) (Van Meeteren; 2020)</button><br>
+    <button onclick="checkAnswer('q1', 'c', 'c')">c) (Van Meeteren, 2020)</button>
+    <div class="feedback" id="feedback-q1"></div>
+    <button class="next-btn" onclick="nextQuestion('q1')">Volgende vraag</button>
+  </div>
 
-  <!-- De vragen -->
-  <!-- (Je originele vragen blijven hier hetzelfde) -->
+  <div class="question" id="q2">
+    <p><strong>Vraag 2 – In-tekstverwijzing:</strong><br>
+    <em>Hornberg, R. (2019). Politiek gedraai in de docentenkamer. Den Haag: Maerlant Pers.</em><br><br>
+    Wat is de juiste in-tekstverwijzing?</p>
+    <button onclick="checkAnswer('q2', 'a', 'a')">a) (Hornberg, 2019)</button><br>
+    <button onclick="checkAnswer('q2', 'b', 'a')">b) Hornberg, 2019</button><br>
+    <button onclick="checkAnswer('q2', 'c', 'a')">c) (Hornberg; 2019)</button>
+    <div class="feedback" id="feedback-q2"></div>
+    <button class="next-btn" onclick="nextQuestion('q2')">Volgende vraag</button>
+  </div>
 
-  <!-- EINDE -->
+  <div class="question" id="q3">
+    <p><strong>Vraag 3 – Boekenverwijzing (literatuurlijst):</strong><br>
+    Auteur: J. Kerkvliet<br>
+    Jaar: 2021<br>
+    Titel: Het ontstaan van tramhalte 12<br>
+    Uitgever: Onderwijsdrukkerij</p>
+    <input type="text" id="input-q3" style="width:100%;" placeholder="Typ je antwoord hier">
+    <button onclick="checkInputAnswer('q3', 'Kerkvliet, J. (2021). Het ontstaan van tramhalte 12. Onderwijsdrukkerij.')">Controleer antwoord</button>
+    <div class="feedback" id="feedback-q3"></div>
+    <button class="next-btn" onclick="nextQuestion('q3')">Volgende vraag</button>
+  </div>
+
+  <div class="question" id="q4">
+    <p><strong>Vraag 4 – In-tekstverwijzing met 2 auteurs:</strong><br>
+    <em>Scheltus, L., & Hornberg, R. (2022). De strijd om de geschiedenisvleugel. Den Haag: Maerlant Press.</em></p>
+    <button onclick="checkAnswer('q4', 'a', 'b')">a) (Scheltus & Hornberg, 2022)</button><br>
+    <button onclick="checkAnswer('q4', 'b', 'b')">b) Scheltus en Hornberg (2022)</button><br>
+    <button onclick="checkAnswer('q4', 'c', 'b')">c) Scheltus, L. en Hornberg, R. (2022)</button>
+    <div class="feedback" id="feedback-q4"></div>
+    <button class="next-btn" onclick="nextQuestion('q4')">Volgende vraag</button>
+  </div>
+
+  <div class="question" id="q5">
+    <p><strong>Vraag 5 – Fout herkennen:</strong><br>
+    Wat is er fout aan deze verwijzing?<br>
+    <em>(Van Meeteren 2020)</em></p>
+    <button onclick="checkAnswer('q5', 'a', 'a')">a) Er ontbreekt een komma tussen naam en jaartal</button><br>
+    <button onclick="checkAnswer('q5', 'b', 'a')">b) De voorletter staat er niet bij</button><br>
+    <button onclick="checkAnswer('q5', 'c', 'a')">c) De titel van het boek ontbreekt</button>
+    <div class="feedback" id="feedback-q5"></div>
+    <button class="next-btn" onclick="nextQuestion('q5')">Volgende vraag</button>
+  </div>
+
+  <div class="question" id="q6">
+    <p><strong>Vraag 6 – In-tekstverwijzing met 3 auteurs:</strong><br>
+    <em>Sijbrandij, F., Van Meeteren, H., & Kerkvliet, J. (2023). Geschiedenis van het schoolplein. Den Haag: Educatief.</em></p>
+    <button onclick="checkAnswer('q6', 'a', 'a')">a) (Sijbrandij, Van Meeteren, & Kerkvliet, 2023)</button><br>
+    <button onclick="checkAnswer('q6', 'b', 'a')">b) (Sijbrandij et al., 2023)</button><br>
+    <button onclick="checkAnswer('q6', 'c', 'a')">c) Sijbrandij et al. (2023)</button>
+    <div class="feedback" id="feedback-q6"></div>
+    <button class="next-btn" onclick="nextQuestion('q6')">Volgende vraag</button>
+  </div>
+
+  <div class="question" id="q7">
+    <p><strong>Vraag 7 – Websiteverwijzing:</strong><br>
+    Auteur: L. Scheltus<br>
+    Jaar: 2022<br>
+    Titel: De geheimen van het Maerlantplein<br>
+    URL: https://www.maerlantgeheimen.nl</p>
+    <input type="text" id="input-q7" style="width:100%;" placeholder="Typ je antwoord hier">
+    <button onclick="checkInputAnswer('q7', 'Scheltus, L. (2022). De geheimen van het Maerlantplein. https://www.maerlantgeheimen.nl')">Controleer antwoord</button>
+    <div class="feedback" id="feedback-q7"></div>
+    <button class="next-btn" onclick="nextQuestion('q7')">Volgende vraag</button>
+  </div>
+
+  <div class="question" id="q8">
+    <p><strong>Vraag 8 – Websiteverwijzing:</strong><br>
+    Auteur: F. Sijbrandij<br>
+    Jaar: 2024<br>
+    Titel: Waarom het Haags kwartiertje écht bestaat<br>
+    URL: https://www.haagsegewoontes.nl/kwartiertje</p>
+    <input type="text" id="input-q8" style="width:100%;" placeholder="Typ je antwoord hier">
+    <button onclick="checkInputAnswer('q8', 'Sijbrandij, F. (2024). Waarom het Haags kwartiertje écht bestaat. https://www.haagsegewoontes.nl/kwartiertje')">Controleer antwoord</button>
+    <div class="feedback" id="feedback-q8"></div>
+    <button class="next-btn" onclick="nextQuestion('q8')">Volgende vraag</button>
+  </div>
+
+  <!-- Vraag 9 -->
+  <div class="question" id="q9">
+    <p><strong>Vraag 9 – Website:</strong><br>
+    Auteur: L. Scheltus<br>
+    Jaar: 2022<br>
+    Titel: De geheimen van het Maerlantplein<br>
+    URL: https://www.maerlantgeheimen.nl</p>
+    <input type="text" id="input-q9" style="width:100%;" placeholder="Typ je antwoord hier">
+    <button onclick="checkInputAnswer('q9', 'Scheltus, L. (2022). De geheimen van het Maerlantplein. https://www.maerlantgeheimen.nl')">Controleer antwoord</button>
+    <div class="feedback" id="feedback-q9"></div>
+    <button class="next-btn" onclick="nextQuestion('q9')">Volgende vraag</button>
+  </div>
+
+  <!-- Vraag 10 -->
+  <div class="question" id="q10">
+    <p><strong>Vraag 10 – In-tekstverwijzing:</strong><br>
+    <em>Kerkvliet, J. (2021). Het ontstaan van tramhalte 12. Den Haag: Onderwijsdrukkerij.</em><br><br>
+    Wat is de juiste in-tekstverwijzing?</p>
+    <button onclick="checkAnswer('q10', 'a', 'c')">a) Kerkvliet 2021</button><br>
+    <button onclick="checkAnswer('q10', 'b', 'c')">b) (Kerkvliet; 2021)</button><br>
+    <button onclick="checkAnswer('q10', 'c', 'c')">c) (Kerkvliet, 2021)</button>
+    <div class="feedback" id="feedback-q10"></div>
+    <button class="next-btn" onclick="nextQuestion('q10')">Volgende vraag</button>
+  </div>
+
+  <!-- Vraag 11 -->
+  <div class="question" id="q11">
+    <p><strong>Vraag 11 – Website:</strong><br>
+    Auteur: F. Sijbrandij<br>
+    Jaar: 2024<br>
+    Titel: Waarom het Haags kwartiertje écht bestaat<br>
+    URL: https://www.haagsegewoontes.nl/kwartiertje</p>
+    <input type="text" id="input-q11" style="width:100%;" placeholder="Typ je antwoord hier">
+    <button onclick="checkInputAnswer('q11', 'Sijbrandij, F. (2024). Waarom het Haags kwartiertje écht bestaat. https://www.haagsegewoontes.nl/kwartiertje')">Controleer antwoord</button>
+    <div class="feedback" id="feedback-q11"></div>
+    <button class="next-btn" onclick="nextQuestion('q11')">Volgende vraag</button>
+  </div>
+
+  <!-- Vraag 12 -->
+  <div class="question" id="q12">
+    <p><strong>Vraag 12 – In-tekstverwijzing:</strong><br>
+    <em>Van Dijk, M. & Peeters, L. (2020). Stadsontwikkeling in de twintigste eeuw. Utrecht: Historische Pers.</em><br><br>
+    Wat is de juiste in-tekstverwijzing?</p>
+    <button onclick="checkAnswer('q12', 'a', 'c')">a) Van Dijk & Peeters (2020)</button><br>
+    <button onclick="checkAnswer('q12', 'b', 'c')">b) (van Dijk en Peeters, 2020)</button><br>
+    <button onclick="checkAnswer('q12', 'c', 'c')">c) (Van Dijk & Peeters, 2020)</button>
+    <div class="feedback" id="feedback-q12"></div>
+    <button class="next-btn" onclick="nextQuestion('q12')">Volgende vraag</button>
+  </div>
+
   <div id="end" style="display:none;">
     <h2>Je hebt het spel voltooid!</h2>
     <p id="final-score"></p>
@@ -34,46 +166,8 @@
   <script>
     let score = 0;
     let attempts = {};
-    let currentQuestionId = 'q1';
-    let timerInterval;
-    let timeLeft = 30;
-
-    const questions = ["q1", "q2", "q3", "q4"];
-
-    function startTimer(questionId) {
-      timeLeft = 30;
-      updateTimer();
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimer();
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          handleTimeExpired(questionId);
-        }
-      }, 1000);
-    }
-
-    function updateTimer() {
-      document.getElementById('timer').textContent = `Tijd: ${timeLeft}s`;
-    }
-
-    function handleTimeExpired(questionId) {
-      const feedbackEl = document.getElementById(`feedback-${questionId}`);
-      const nextBtn = document.querySelector(`#${questionId} .next-btn`);
-      attempts[questionId] = attempts[questionId] || 0;
-
-      if (attempts[questionId] < 1) {
-        score -= 0.5;
-        document.getElementById('score').textContent = `Score: ${score}`;
-      }
-
-      feedbackEl.textContent = 'Tijd is op! Tip: Let op de juiste APA-stijl en interpunctie.';
-      nextBtn.style.display = 'inline-block';
-    }
 
     function checkAnswer(questionId, selected, correct) {
-      clearInterval(timerInterval);
       const feedbackEl = document.getElementById(`feedback-${questionId}`);
       const nextBtn = document.querySelector(`#${questionId} .next-btn`);
       attempts[questionId] = attempts[questionId] || 0;
@@ -86,18 +180,15 @@
         nextBtn.style.display = 'inline-block';
       } else {
         if (attempts[questionId] === 1) {
-          score -= 0.5;
           feedbackEl.textContent = 'Helaas, dat is niet correct. Hint: APA gebruikt komma’s tussen naam en jaartal, en "&" tussen auteurs.';
         } else {
           feedbackEl.textContent = `Nog steeds niet correct. Het juiste antwoord was optie ${correct}.`;
+          nextBtn.style.display = 'inline-block';
         }
-        document.getElementById('score').textContent = `Score: ${score}`;
-        nextBtn.style.display = 'inline-block';
       }
     }
 
     function checkInputAnswer(questionId, correct) {
-      clearInterval(timerInterval);
       const input = document.getElementById(`input-${questionId}`).value.trim();
       const feedbackEl = document.getElementById(`feedback-${questionId}`);
       const nextBtn = document.querySelector(`#${questionId} .next-btn`);
@@ -111,34 +202,25 @@
         nextBtn.style.display = 'inline-block';
       } else {
         if (attempts[questionId] === 1) {
-          score -= 0.5;
           feedbackEl.textContent = 'Dat is nog niet juist. Hint: Let op de volgorde van naam, jaar, titel en interpunctie.';
         } else {
           feedbackEl.textContent = `Niet helemaal juist. De correcte vorm is: ${correct}`;
+          nextBtn.style.display = 'inline-block';
         }
-        document.getElementById('score').textContent = `Score: ${score}`;
-        nextBtn.style.display = 'inline-block';
       }
     }
 
     function nextQuestion(currentId) {
+      const questions = ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12"];
       const currentIndex = questions.indexOf(currentId);
       document.getElementById(currentId).classList.remove('active');
-
       if (currentIndex + 1 < questions.length) {
-        const nextId = questions[currentIndex + 1];
-        document.getElementById(nextId).classList.add('active');
-        startTimer(nextId);
-        currentQuestionId = nextId;
+        document.getElementById(questions[currentIndex + 1]).classList.add('active');
       } else {
         document.getElementById('end').style.display = 'block';
         document.getElementById('final-score').textContent = `Je eindscore is: ${score} van de ${questions.length}.`;
-        document.getElementById('timer').style.display = 'none';
       }
     }
-
-    // Start eerste vraag timer
-    window.onload = () => startTimer(currentQuestionId);
   </script>
 </body>
 </html>

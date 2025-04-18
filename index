@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APA Verwijzingen Oefenspel</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    .question { display: none; margin-bottom: 20px; }
+    .question.active { display: block; }
+    .feedback { margin-top: 10px; font-weight: bold; }
+    button { margin-top: 10px; }
+    input { margin-top: 10px; }
+    .next-btn { display: none; margin-top: 10px; }
+    .timer { font-weight: bold; color: red; }
+  </style>
+</head>
+<body>
+  <h1>APA Verwijzingen Oefenspel</h1>
+  <div id="score">Score: 0</div>
+
+  <!-- Timer -->
+  <div id="timer" class="timer">Tijd: 30s</div>
+
+  <!-- De vragen -->
+  <!-- (Je originele vragen blijven hier hetzelfde) -->
+
+  <!-- EINDE -->
+  <div id="end" style="display:none;">
+    <h2>Je hebt het spel voltooid!</h2>
+    <p id="final-score"></p>
+  </div>
+
+  <script>
+    let score = 0;
+    let attempts = {};
+    let currentQuestionId = 'q1';
+    let timerInterval;
+    let timeLeft = 30;
+
+    const questions = ["q1", "q2", "q3", "q4"];
+
+    function startTimer(questionId) {
+      timeLeft = 30;
+      updateTimer();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          handleTimeExpired(questionId);
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      document.getElementById('timer').textContent = `Tijd: ${timeLeft}s`;
+    }
+
+    function handleTimeExpired(questionId) {
+      const feedbackEl = document.getElementById(`feedback-${questionId}`);
+      const nextBtn = document.querySelector(`#${questionId} .next-btn`);
+      attempts[questionId] = attempts[questionId] || 0;
+
+      if (attempts[questionId] < 1) {
+        score -= 0.5;
+        document.getElementById('score').textContent = `Score: ${score}`;
+      }
+
+      feedbackEl.textContent = 'Tijd is op! Tip: Let op de juiste APA-stijl en interpunctie.';
+      nextBtn.style.display = 'inline-block';
+    }
+
+    function checkAnswer(questionId, selected, correct) {
+      clearInterval(timerInterval);
+      const feedbackEl = document.getElementById(`feedback-${questionId}`);
+      const nextBtn = document.querySelector(`#${questionId} .next-btn`);
+      attempts[questionId] = attempts[questionId] || 0;
+      attempts[questionId]++;
+
+      if (selected === correct) {
+        feedbackEl.textContent = 'Goed gedaan! Dit is de correcte APA in-tekstverwijzing.';
+        if (attempts[questionId] === 1) score++;
+        document.getElementById('score').textContent = `Score: ${score}`;
+        nextBtn.style.display = 'inline-block';
+      } else {
+        if (attempts[questionId] === 1) {
+          score -= 0.5;
+          feedbackEl.textContent = 'Helaas, dat is niet correct. Hint: APA gebruikt komma’s tussen naam en jaartal, en "&" tussen auteurs.';
+        } else {
+          feedbackEl.textContent = `Nog steeds niet correct. Het juiste antwoord was optie ${correct}.`;
+        }
+        document.getElementById('score').textContent = `Score: ${score}`;
+        nextBtn.style.display = 'inline-block';
+      }
+    }
+
+    function checkInputAnswer(questionId, correct) {
+      clearInterval(timerInterval);
+      const input = document.getElementById(`input-${questionId}`).value.trim();
+      const feedbackEl = document.getElementById(`feedback-${questionId}`);
+      const nextBtn = document.querySelector(`#${questionId} .next-btn`);
+      attempts[questionId] = attempts[questionId] || 0;
+      attempts[questionId]++;
+
+      if (input === correct) {
+        feedbackEl.textContent = 'Helemaal correct! Netjes!';
+        if (attempts[questionId] === 1) score++;
+        document.getElementById('score').textContent = `Score: ${score}`;
+        nextBtn.style.display = 'inline-block';
+      } else {
+        if (attempts[questionId] === 1) {
+          score -= 0.5;
+          feedbackEl.textContent = 'Dat is nog niet juist. Hint: Let op de volgorde van naam, jaar, titel en interpunctie.';
+        } else {
+          feedbackEl.textContent = `Niet helemaal juist. De correcte vorm is: ${correct}`;
+        }
+        document.getElementById('score').textContent = `Score: ${score}`;
+        nextBtn.style.display = 'inline-block';
+      }
+    }
+
+    function nextQuestion(currentId) {
+      const currentIndex = questions.indexOf(currentId);
+      document.getElementById(currentId).classList.remove('active');
+
+      if (currentIndex + 1 < questions.length) {
+        const nextId = questions[currentIndex + 1];
+        document.getElementById(nextId).classList.add('active');
+        startTimer(nextId);
+        currentQuestionId = nextId;
+      } else {
+        document.getElementById('end').style.display = 'block';
+        document.getElementById('final-score').textContent = `Je eindscore is: ${score} van de ${questions.length}.`;
+        document.getElementById('timer').style.display = 'none';
+      }
+    }
+
+    // Start eerste vraag timer
+    window.onload = () => startTimer(currentQuestionId);
+  </script>
+</body>
+</html>
